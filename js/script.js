@@ -13,7 +13,7 @@ comics.forEach((comic) => {
   block.innerHTML = `
     <div class="comic-title-row">
       <h3>${comic.title}</h3>
-      <span class="counter" data-role="counter">Halaman 1 / ${total}</span>
+      <span class="counter" data-role="counter">Page 1 / ${total}</span>
     </div>
     <div class="comic-viewer">
       <div class="comic-track-mask" data-role="mask">
@@ -27,7 +27,7 @@ comics.forEach((comic) => {
                      <p>Ganti "src" pada js/comics-data.js dengan gambar halaman ${i+1}</p>
                    </div>`
               }
-              <span class="page-caption">${p.caption || 'Halaman ' + (i+1)}</span>
+              <span class="page-caption">${p.caption || 'Page ' + (i+1)}</span>
             </div>
           `).join('')}
         </div>
