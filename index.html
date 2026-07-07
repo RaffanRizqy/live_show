@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexa Labs — Game & Komik Edukasi</title>
+<meta name="description" content="Website game Scratch dan komik edukasi untuk anak.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-badge">📚</div>
+      <div class="brand-text">
+        <h1>Kotak Belajar</h1>
+        <span>Game TRASH to Treasure &amp; Education Comic</span>
+      </div>
+    </div>
+    <nav class="tabs">
+      <a href="#game">🎮 Game</a>
+      <a href="#komik">📖 Komik</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div>
+    <h2>Nexa Labs<br><span class="doodle-underline">main &amp; baca<svg viewBox="0 0 200 14" preserveAspectRatio="none"><path d="M2 8 C 40 -2, 80 14, 120 6 S 180 -2, 198 8" stroke="#FF6F59" stroke-width="5" fill="none" stroke-linecap="round"/></svg></span></h2>
+    <p>Our innovation is not only making products. We help Indonesian children learn how to process waste in a fun way.
+</p>
+    <div class="pill-row">
+      <span class="pill p-blue">Smart Products</span>
+      <span class="pill p-coral">Smart Learning</span>
+      <span class="pill p-yellow">Smart Future</span>
+    </div>
+  </div>
+  <div class="hero-card">
+    <span class="emoji">🧠✨</span>
+    <b>Does not just turn waste into products,<br>We combine it with technology!</b>
+    <b>We need many young creators!</b>
+  </div>
+</section>
+
+<section class="block" id="game">
+  <div class="section-head">
+    <span class="tag-badge">PLAY</span>
+    <h2>Trash to Treasure</h2>
+  </div>
+  <p class="section-desc">Education Game.Click Green Flag to Play.</p>
+
+  <div class="game-grid" id="gameGrid">
+    <!-- Game card 1 -->
+    <div class="game-card">
+      <div class="cabinet-top">
+        <h3>Trash to Treasure </h3>
+        <div class="cabinet-dot-row"><span></span><span></span><span></span></div>
+      </div>
+      <div class="game-frame-wrap">
+        <iframe src="https://scratch.mit.edu/projects/1324083384/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>
+      </div>
+      <p class="desc">Asah kemampuan berhitung dengan menjawab tantangan angka di setiap level.</p>
+    </div>
+
+    <!-- Tambahkan game lain dengan menyalin blok .game-card di atas,
+         lalu ganti link iframe src dengan project Scratch lainnya -->
+  </div>
+</section>
+
+<section class="block" id="komik">
+  <div class="section-head">
+    <span class="tag-badge">Read</span>
+    <h2>Education Comic</h2>
+  </div>
+  <p class="section-desc">Swipe or press Arrow to open Next Page.</p>
+
+  <div id="comicContainer"></div>
+</section>
+
+<footer>
+  Nexa Labs | Build, Code, Impact
+</footer>
+
+<script src="js/comics-data.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
