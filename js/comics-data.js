@@ -20,5 +20,14 @@ const comics = [
       { src: "assets/comics/komik-1/4.png", caption: "Page 4" },
     ]
   },
-  
+
+   {
+    title: "Eco Heroes",
+    pages: [
+      { src: "assets/comics/komik-1/1.png", caption: "Page 1" },
+      { src: "assets/comics/komik-1/2.png", caption: "Page 2" },
+      { src: "assets/comics/komik-1/3.png", caption: "Page 3" },
+      { src: "assets/comics/komik-1/4.png", caption: "Page 4" },
+    ]
+  },
 ];
