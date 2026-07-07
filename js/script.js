@@ -51,7 +51,7 @@ comics.forEach((comic) => {
 
   function render(){
     track.style.transform = `translateX(-${current * 100}%)`;
-    counter.textContent = `Halaman ${current+1} / ${total}`;
+    counter.textContent = `Page ${current+1} / ${total}`;
     prevBtn.classList.toggle('disabled', current === 0);
     nextBtn.classList.toggle('disabled', current === total - 1);
     dots.forEach((d, i) => d.classList.toggle('active', i === current));
