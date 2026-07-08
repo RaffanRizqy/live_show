@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purchase Order — Eco Wallet & Eco Lanyard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDE3D0;
+    --paper-deep:#E2D4B8;
+    --forest:#24402F;
+    --forest-deep:#182D20;
+    --tan:#C9AD82;
+    --thread:#8C6B4F;
+    --leaf:#5B8C5A;
+    --leaf-deep:#446B44;
+    --rust:#B5651D;
+    --ink:#2B2620;
+    --cream:#FBF7EE;
+    --error:#B23B2E;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      linear-gradient(var(--paper-deep) 1px, transparent 1px),
+      linear-gradient(90deg, var(--paper-deep) 1px, transparent 1px);
+    background-size: 34px 34px;
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  h1,h2,h3{ font-family:'Zilla Slab', serif; margin:0; }
+  .mono{ font-family:'Space Mono', monospace; }
+
+  /* ===== Header ===== */
+  header{
+    background:var(--forest);
+    color:var(--cream);
+    padding:34px 20px 30px;
+    text-align:center;
+    position:relative;
+    border-bottom:6px solid var(--leaf);
+  }
+  header .back-link{
+    position:absolute;
+    top:16px; left:20px;
+    color:var(--cream);
+    text-decoration:none;
+    font-size:13px;
+    font-family:'Work Sans', sans-serif;
+    opacity:0.8;
+    border:1px solid rgba(255,255,255,0.3);
+    padding:6px 12px;
+    border-radius:999px;
+    transition:opacity .15s ease, background .15s ease;
+  }
+  header .back-link:hover{ opacity:1; background:rgba(255,255,255,0.1); }
+  header .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    opacity:0.75;
+    margin-bottom:10px;
+  }
+  header h1{
+    font-size:34px;
+    font-weight:700;
+    letter-spacing:0.3px;
+  }
+  header p{
+    max-width:44ch;
+    margin:12px auto 0;
+    font-size:15px;
+    line-height:1.55;
+    opacity:0.85;
+  }
+  .leaf-row{
+    display:flex; justify-content:center; gap:14px;
+    margin-top:18px; font-size:13px; flex-wrap:wrap;
+  }
+  .leaf-row span{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.25);
+    padding:5px 13px; border-radius:999px;
+  }
+
+  /* ===== Layout ===== */
+  main{
+    max-width:640px;
+    margin:0 auto;
+    padding:38px 18px 70px;
+  }
+
+  /* ===== Hang tag card ===== */
+  .tag-hole-wrap{
+    display:flex; justify-content:center;
+    margin-bottom:-22px;
+    position:relative; z-index:2;
+  }
+  .tag-string{
+    width:2px; height:38px;
+    background:repeating-linear-gradient(var(--thread), var(--thread) 6px, transparent 6px, transparent 11px);
+    margin:0 auto;
+  }
+  .tag-hole{
+    width:26px; height:26px;
+    border-radius:50%;
+    background:var(--paper);
+    border:4px solid var(--forest);
+    position:absolute;
+    top:-13px; left:50%; transform:translateX(-50%);
+  }
+
+  form{
+    background:var(--cream);
+    border:2.5px solid var(--forest);
+    border-radius:18px;
+    padding:50px 30px 34px;
+    box-shadow:8px 8px 0 var(--tan);
+    position:relative;
+  }
+
+  .field-group{
+    margin-bottom:26px;
+  }
+  .field-group label{
+    display:flex; align-items:baseline; gap:8px;
+    font-family:'Zilla Slab', serif;
+    font-weight:600; font-size:16px;
+    margin-bottom:9px; color:var(--forest-deep);
+  }
+  .field-group label .req{
+    color:var(--rust); font-size:13px; font-family:'Work Sans';
+  }
+  .hint{
+    font-size:12.5px; color:var(--thread); margin-top:6px; line-height:1.5;
+  }
+
+  input[type="text"],
+  input[type="tel"],
+  input[type="number"]{
+    width:100%;
+    font-family:'Work Sans', sans-serif;
+    font-size:15.5px;
+    padding:12px 14px;
+    border:2px dashed var(--tan);
+    border-radius:10px;
+    background:var(--paper);
+    color:var(--ink);
+    transition:border-color .15s ease, background .15s ease;
+  }
+  input:focus{
+    outline:none;
+    border-color:var(--leaf);
+    border-style:solid;
+    background:#fff;
+  }
+  input::placeholder{ color:#9c917c; }
+
+  /* Number stepper */
+  .qty-control{
+    display:flex; align-items:center; gap:0;
+    max-width:180px;
+  }
+  .qty-control button{
+    width:42px; height:44px;
+    border:2px solid var(--forest);
+    background:var(--forest);
+    color:var(--cream);
+    font-size:19px; font-weight:700;
+    cursor:pointer;
+    font-family:'Space Mono', monospace;
+  }
+  .qty-control button:first-child{ border-radius:10px 0 0 10px; }
+  .qty-control button:last-child{ border-radius:0 10px 10px 0; }
+  .qty-control button:hover{ background:var(--leaf-deep); }
+  .qty-control input{
+    width:70px; text-align:center;
+    border-radius:0; border-left:none; border-right:none;
+    border-color:var(--forest); border-style:solid;
+    font-family:'Space Mono', monospace; font-weight:700;
+  }
+  .qty-control input:focus{ border-color:var(--forest); }
+
+  /* Product swatch selector */
+  .product-choices{
+    display:grid; grid-template-columns:1fr 1fr; gap:14px;
+  }
+  .product-card{
+    position:relative;
+    border:2.5px dashed var(--tan);
+    border-radius:14px;
+    padding:18px 14px;
+    text-align:center;
+    cursor:pointer;
+    background:var(--paper);
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+  }
+  .product-card:hover{ transform:translateY(-2px); }
+  .product-card input{
+    position:absolute; opacity:0; inset:0; cursor:pointer; margin:0;
+  }
+  .product-card .icon{
+    font-size:32px; display:block; margin-bottom:8px;
+  }
+  .product-card .name{
+    font-family:'Zilla Slab', serif; font-weight:600; font-size:15.5px;
+    color:var(--forest-deep);
+  }
+  .product-card .price{
+    font-family:'Space Mono', monospace; font-size:12.5px;
+    color:var(--thread); margin-top:4px;
+  }
+  .product-card.selected{
+    border-style:solid; border-color:var(--leaf);
+    background:#fff;
+  }
+  .product-card.selected::after{
+    content:"✓";
+    position:absolute; top:8px; right:10px;
+    width:20px; height:20px; border-radius:50%;
+    background:var(--leaf); color:#fff;
+    font-size:12px; display:flex; align-items:center; justify-content:center;
+  }
+
+  /* File upload */
+  .upload-zone{
+    border:2.5px dashed var(--tan);
+    border-radius:14px;
+    padding:26px 16px;
+    text-align:center;
+    background:var(--paper);
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .upload-zone.dragover, .upload-zone:hover{
+    border-color:var(--leaf); background:#fff;
+  }
+  .upload-zone input{ display:none; }
+  .upload-zone .icon{ font-size:28px; display:block; margin-bottom:8px; }
+  .upload-zone .txt{ font-size:14px; color:var(--thread); }
+  .upload-zone .txt b{ color:var(--forest-deep); }
+  .preview-wrap{
+    margin-top:14px; display:none;
+    align-items:center; gap:12px;
+    background:#fff; border:2px solid var(--leaf);
+    border-radius:12px; padding:10px 12px;
+  }
+  .preview-wrap img{
+    width:52px; height:52px; object-fit:cover; border-radius:8px;
+    border:1px solid var(--tan);
+  }
+  .preview-wrap .meta{ flex:1; text-align:left; font-size:13px; }
+  .preview-wrap .meta .fname{ font-weight:600; color:var(--forest-deep); word-break:break-all; }
+  .preview-wrap .remove{
+    background:none; border:none; color:var(--error);
+    font-size:13px; cursor:pointer; font-weight:600;
+    font-family:'Work Sans';
+  }
+
+  /* Divider stitch */
+  .stitch-divider{
+    border:none;
+    border-top:2px dashed var(--tan);
+    margin:30px 0;
+  }
+
+  /* Submit */
+  .submit-btn{
+    width:100%;
+    background:var(--leaf);
+    color:#fff;
+    border:2.5px solid var(--forest-deep);
+    font-family:'Zilla Slab', serif;
+    font-weight:700; font-size:18px;
+    padding:15px;
+    border-radius:12px;
+    cursor:pointer;
+    box-shadow:5px 5px 0 var(--forest-deep);
+    transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+  }
+  .submit-btn:hover{
+    transform:translate(-2px,-2px);
+    box-shadow:7px 7px 0 var(--forest-deep);
+    background:var(--leaf-deep);
+  }
+  .submit-btn:active{
+    transform:translate(1px,1px);
+    box-shadow:3px 3px 0 var(--forest-deep);
+  }
+  .submit-btn:disabled{
+    opacity:0.6; cursor:not-allowed; transform:none;
+    box-shadow:5px 5px 0 var(--forest-deep);
+  }
+
+  .error-msg{
+    color:var(--error); font-size:12.5px; margin-top:6px;
+    display:none; font-weight:600;
+  }
+  .field-group.invalid input,
+  .field-group.invalid .upload-zone,
+  .field-group.invalid .product-card{
+    border-color:var(--error);
+  }
+  .field-group.invalid .error-msg{ display:block; }
+
+  /* Status banner */
+  .status-banner{
+    display:none;
+    margin-top:20px;
+    padding:14px 16px;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:600;
+    text-align:center;
+  }
+  .status-banner.show{ display:block; }
+  .status-banner.loading{ background:var(--paper-deep); color:var(--thread); }
+  .status-banner.success{ background:#DCEBD8; color:var(--forest-deep); border:2px solid var(--leaf); }
+  .status-banner.fail{ background:#F5DAD4; color:var(--error); border:2px solid var(--error); }
+
+  /* Receipt success card */
+  .receipt{
+    display:none;
+    background:var(--cream);
+    border:2.5px dashed var(--forest);
+    border-radius:16px;
+    padding:26px 24px;
+    margin-top:24px;
+    text-align:center;
+  }
+  .receipt.show{ display:block; }
+  .receipt .stamp{
+    font-size:38px; margin-bottom:6px;
+  }
+  .receipt h3{ font-size:20px; color:var(--forest-deep); margin-bottom:6px; }
+  .receipt p{ font-size:14px; color:var(--thread); line-height:1.6; }
+  .receipt .order-id{
+    display:inline-block; margin-top:10px;
+    background:var(--paper); border:1px dashed var(--tan);
+    padding:6px 14px; border-radius:8px; font-size:13px;
+  }
+
+  footer{
+    text-align:center; padding:26px 20px 40px;
+    font-size:12.5px; color:var(--thread);
+  }
+
+  @media (max-width:480px){
+    header h1{ font-size:27px; }
+    form{ padding:44px 18px 28px; }
+    .product-choices{ gap:10px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="back-link">← Kembali ke Beranda</a>
+  <div class="eyebrow">Purchase Order · Handmade Sustainable Goods</div>
+  <h1>Eco Wallet &amp; Eco Lanyard</h1>
+  <p>Dompet dan lanyard yang dibuat dari bahan daur ulang pilihan. Isi formulir di bawah untuk memesan — tim kami akan menghubungi kamu lewat WhatsApp untuk konfirmasi.</p>
+  <div class="leaf-row">
+    <span>🌱 Bahan daur ulang</span>
+    <span>✋ Dibuat tangan</span>
+    <span>📦 Custom order</span>
+  </div>
+</header>
+
+<main>
+  <div class="tag-hole-wrap">
+    <div style="text-align:center;">
+      <div class="tag-hole"></div>
+      <div class="tag-string"></div>
+    </div>
+  </div>
+
+  <form id="poForm" novalidate>
+
+    <div class="field-group" id="group-nama">
+      <label for="nama">Nama Lengkap <span class="req">wajib</span></label>
+      <input type="text" id="nama" name="nama" placeholder="mis. Raffan Rizqy">
+      <div class="error-msg">Nama tidak boleh kosong.</div>
+    </div>
+
+    <div class="field-group" id="group-wa">
+      <label for="wa">Nomor WhatsApp <span class="req">wajib</span></label>
+      <input type="tel" id="wa" name="wa" placeholder="mis. 081234567890">
+      <div class="hint">Pastikan nomor aktif — konfirmasi pesanan dikirim lewat WhatsApp.</div>
+      <div class="error-msg">Masukkan nomor WhatsApp yang valid (minimal 9 digit).</div>
+    </div>
+
+    <div class="field-group" id="group-produk">
+      <label>Jenis Produk <span class="req">wajib</span></label>
+      <div class="product-choices">
+        <label class="product-card" data-value="Eco Wallet">
+          <input type="radio" name="produk" value="Eco Wallet">
+          <span class="icon">👛</span>
+          <span class="name">Eco Wallet</span>
+          <span class="price">Dompet daur ulang</span>
+        </label>
+        <label class="product-card" data-value="Eco Lanyard">
+          <input type="radio" name="produk" value="Eco Lanyard">
+          <span class="icon">🎫</span>
+          <span class="name">Eco Lanyard</span>
+          <span class="price">Lanyard daur ulang</span>
+        </label>
+      </div>
+      <div class="error-msg">Pilih salah satu jenis produk.</div>
+    </div>
+
+    <div class="field-group" id="group-jumlah">
+      <label for="jumlah">Jumlah Order <span class="req">wajib</span></label>
+      <div class="qty-control">
+        <button type="button" id="qtyMinus" aria-label="Kurangi jumlah">−</button>
+        <input type="number" id="jumlah" name="jumlah" value="1" min="1" inputmode="numeric">
+        <button type="button" id="qtyPlus" aria-label="Tambah jumlah">+</button>
+      </div>
+      <div class="error-msg">Jumlah order minimal 1.</div>
+    </div>
+
+    <hr class="stitch-divider">
+
+    <div class="field-group" id="group-bukti">
+      <label>Upload Bukti Transfer <span class="req">wajib</span></label>
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="buktiTrf" accept="image/*,.pdf">
+        <span class="icon">📎</span>
+        <div class="txt"><b>Klik untuk pilih file</b> atau seret ke sini<br>JPG, PNG, atau PDF — maks. 5MB</div>
+      </div>
+      <div class="preview-wrap" id="previewWrap">
+        <img id="previewImg" src="" alt="Preview bukti transfer">
+        <div class="meta">
+          <div class="fname" id="previewName"></div>
+          <div id="previewSize" class="mono" style="color:var(--thread);"></div>
+        </div>
+        <button type="button" class="remove" id="removeFile">Hapus</button>
+      </div>
+      <div class="error-msg">Upload bukti transfer terlebih dahulu.</div>
+    </div>
+
+    <button type="submit" class="submit-btn" id="submitBtn">Kirim Pesanan</button>
+
+    <div class="status-banner" id="statusBanner"></div>
+  </form>
+
+  <div class="receipt" id="receiptCard">
+    <div class="stamp">✅</div>
+    <h3>Pesanan Diterima!</h3>
+    <p>Terima kasih, pesananmu sudah tercatat. Tim kami akan menghubungi kamu lewat WhatsApp untuk konfirmasi dalam 1×24 jam.</p>
+    <div class="order-id mono" id="orderIdDisplay"></div>
+  </div>
+</main>
+
+<footer>
+  Eco Wallet Co. — Produk daur ulang, dibuat dengan hati 🌿
+</footer>
+
+<script>
+/* =========================================================
+   KONFIGURASI
+   Ganti URL di bawah dengan URL Web App Google Apps Script
+   kamu sendiri (lihat panduan setup yang menyertai file ini).
+========================================================= */
+const APPS_SCRIPT_URL = "GANTI_DENGAN_URL_WEB_APP_KAMU";
+
+const form = document.getElementById('poForm');
+const submitBtn = document.getElementById('submitBtn');
+const statusBanner = document.getElementById('statusBanner');
+const receiptCard = document.getElementById('receiptCard');
+const orderIdDisplay = document.getElementById('orderIdDisplay');
+
+/* --- Qty stepper --- */
+const jumlahInput = document.getElementById('jumlah');
+document.getElementById('qtyMinus').addEventListener('click', () => {
+  jumlahInput.value = Math.max(1, (parseInt(jumlahInput.value) || 1) - 1);
+});
+document.getElementById('qtyPlus').addEventListener('click', () => {
+  jumlahInput.value = (parseInt(jumlahInput.value) || 1) + 1;
+});
+
+/* --- Product card selection --- */
+document.querySelectorAll('.product-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    card.querySelector('input').checked = true;
+    document.getElementById('group-produk').classList.remove('invalid');
+  });
+});
+
+/* --- File upload --- */
+const uploadZone = document.getElementById('uploadZone');
+const fileInput = document.getElementById('buktiTrf');
+const previewWrap = document.getElementById('previewWrap');
+const previewImg = document.getElementById('previewImg');
+const previewName = document.getElementById('previewName');
+const previewSize = document.getElementById('previewSize');
+const removeFileBtn = document.getElementById('removeFile');
+let selectedFileBase64 = null;
+let selectedFileMeta = null;
+
+uploadZone.addEventListener('click', () => fileInput.click());
+uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+uploadZone.addEventListener('drop', e => {
+  e.preventDefault();
+  uploadZone.classList.remove('dragover');
+  if(e.dataTransfer.files.length){
+    fileInput.files = e.dataTransfer.files;
+    handleFile(e.dataTransfer.files[0]);
+  }
+});
+fileInput.addEventListener('change', () => {
+  if(fileInput.files.length) handleFile(fileInput.files[0]);
+});
+
+function handleFile(file){
+  if(file.size > 5 * 1024 * 1024){
+    alert('Ukuran file maksimal 5MB.');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = () => {
+    selectedFileBase64 = reader.result.split(',')[1];
+    selectedFileMeta = { name: file.name, type: file.type, size: file.size };
+    previewName.textContent = file.name;
+    previewSize.textContent = (file.size / 1024).toFixed(0) + ' KB';
+    if(file.type.startsWith('image/')){
+      previewImg.src = reader.result;
+      previewImg.style.display = 'block';
+    } else {
+      previewImg.style.display = 'none';
+    }
+    previewWrap.style.display = 'flex';
+    document.getElementById('group-bukti').classList.remove('invalid');
+  };
+  reader.readAsDataURL(file);
+}
+
+removeFileBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  selectedFileBase64 = null;
+  selectedFileMeta = null;
+  fileInput.value = '';
+  previewWrap.style.display = 'none';
+});
+
+/* --- Validation --- */
+function validate(){
+  let valid = true;
+
+  const nama = document.getElementById('nama').value.trim();
+  toggleInvalid('group-nama', nama.length < 2);
+  if(nama.length < 2) valid = false;
+
+  const wa = document.getElementById('wa').value.trim().replace(/[^0-9]/g, '');
+  toggleInvalid('group-wa', wa.length < 9);
+  if(wa.length < 9) valid = false;
+
+  const produk = document.querySelector('input[name="produk"]:checked');
+  toggleInvalid('group-produk', !produk);
+  if(!produk) valid = false;
+
+  const jumlah = parseInt(jumlahInput.value);
+  toggleInvalid('group-jumlah', !jumlah || jumlah < 1);
+  if(!jumlah || jumlah < 1) valid = false;
+
+  toggleInvalid('group-bukti', !selectedFileBase64);
+  if(!selectedFileBase64) valid = false;
+
+  return valid;
+}
+function toggleInvalid(groupId, isInvalid){
+  document.getElementById(groupId).classList.toggle('invalid', isInvalid);
+}
+
+/* --- Submit --- */
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if(!validate()){
+    statusBanner.className = 'status-banner show fail';
+    statusBanner.textContent = 'Mohon lengkapi semua data yang wajib diisi.';
+    return;
+  }
+
+  if(APPS_SCRIPT_URL.includes('GANTI_DENGAN_URL')){
+    statusBanner.className = 'status-banner show fail';
+    statusBanner.textContent = 'APPS_SCRIPT_URL belum diatur — lihat panduan setup Google Sheets.';
+    return;
+  }
+
+  submitBtn.disabled = true;
+  statusBanner.className = 'status-banner show loading';
+  statusBanner.textContent = 'Mengirim pesanan...';
+
+  const payload = {
+    nama: document.getElementById('nama').value.trim(),
+    wa: document.getElementById('wa').value.trim(),
+    produk: document.querySelector('input[name="produk"]:checked').value,
+    jumlah: jumlahInput.value,
+    fileBase64: selectedFileBase64,
+    fileName: selectedFileMeta.name,
+    fileType: selectedFileMeta.type
+  };
+
+  try{
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+
+    if(data.result === 'success'){
+      statusBanner.className = 'status-banner';
+      form.style.display = 'none';
+      orderIdDisplay.textContent = 'Order ID: ' + data.orderId;
+      receiptCard.classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      throw new Error(data.message || 'Gagal menyimpan data');
+    }
+  } catch(err){
+    statusBanner.className = 'status-banner show fail';
+    statusBanner.textContent = 'Gagal mengirim pesanan. Coba lagi ya. (' + err.message + ')';
+  } finally {
+    submitBtn.disabled = false;
+  }
+});
+</script>
+
+</body>
+</html>
