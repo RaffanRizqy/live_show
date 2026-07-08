@@ -366,10 +366,10 @@
   <a href="index.html" class="back-link">← Kembali ke Beranda</a>
   <div class="eyebrow">Purchase Order · Handmade Sustainable Goods</div>
   <h1>Eco Wallet &amp; Eco Lanyard</h1>
-  <p>Dompet dan lanyard yang dibuat dari bahan daur ulang pilihan. Isi formulir di bawah untuk memesan — tim kami akan menghubungi kamu lewat WhatsApp untuk konfirmasi.</p>
+  <p>Eco Wallet and Eco lanyard is made from coffee ground. Fill the form bellow to order — our team will contact you in WhatsApp.</p>
   <div class="leaf-row">
-    <span>🌱 Bahan daur ulang</span>
-    <span>✋ Dibuat tangan</span>
+    <span>🌱 From Coffee Ground</span>
+    <span>✋ Hand Made</span>
     <span>📦 Custom order</span>
   </div>
 </header>
@@ -385,55 +385,55 @@
   <form id="poForm" novalidate>
 
     <div class="field-group" id="group-nama">
-      <label for="nama">Nama Lengkap <span class="req">wajib</span></label>
-      <input type="text" id="nama" name="nama" placeholder="mis. Raffan Rizqy">
-      <div class="error-msg">Nama tidak boleh kosong.</div>
+      <label for="nama">Full Name <span class="req">Required</span></label>
+      <input type="text" id="nama" name="nama" placeholder="Ex. Raffan Rizqy">
+      <div class="error-msg">Name must be filled in.</div>
     </div>
 
     <div class="field-group" id="group-wa">
-      <label for="wa">Nomor WhatsApp <span class="req">wajib</span></label>
-      <input type="tel" id="wa" name="wa" placeholder="mis. 081234567890">
-      <div class="hint">Pastikan nomor aktif — konfirmasi pesanan dikirim lewat WhatsApp.</div>
-      <div class="error-msg">Masukkan nomor WhatsApp yang valid (minimal 9 digit).</div>
+      <label for="wa">WhatsApp <span class="req">wajib</span></label>
+      <input type="tel" id="wa" name="wa" placeholder="Ex. 085188663499">
+      <div class="hint">The number is must active — Order confirmation sent via WhatsApp.</div>
+      <div class="error-msg">Enter a valid WhatsApp number.</div>
     </div>
 
     <div class="field-group" id="group-produk">
-      <label>Jenis Produk <span class="req">wajib</span></label>
+      <label>Type of Product <span class="req">required</span></label>
       <div class="product-choices">
         <label class="product-card" data-value="Eco Wallet">
           <input type="radio" name="produk" value="Eco Wallet">
           <span class="icon">👛</span>
           <span class="name">Eco Wallet</span>
-          <span class="price">Dompet daur ulang</span>
+          <span class="price">Eco Wallet</span>
         </label>
         <label class="product-card" data-value="Eco Lanyard">
           <input type="radio" name="produk" value="Eco Lanyard">
           <span class="icon">🎫</span>
           <span class="name">Eco Lanyard</span>
-          <span class="price">Lanyard daur ulang</span>
+          <span class="price">Eco Lanyard</span>
         </label>
       </div>
-      <div class="error-msg">Pilih salah satu jenis produk.</div>
+      <div class="error-msg">Choose Product.</div>
     </div>
 
     <div class="field-group" id="group-jumlah">
-      <label for="jumlah">Jumlah Order <span class="req">wajib</span></label>
+      <label for="jumlah">Quantity <span class="req">wajib</span></label>
       <div class="qty-control">
         <button type="button" id="qtyMinus" aria-label="Kurangi jumlah">−</button>
         <input type="number" id="jumlah" name="jumlah" value="1" min="1" inputmode="numeric">
         <button type="button" id="qtyPlus" aria-label="Tambah jumlah">+</button>
       </div>
-      <div class="error-msg">Jumlah order minimal 1.</div>
+      <div class="error-msg">Minimal 1.</div>
     </div>
 
     <hr class="stitch-divider">
 
     <div class="field-group" id="group-bukti">
-      <label>Upload Bukti Transfer <span class="req">wajib</span></label>
+      <label>Upload Proof of Transfer <span class="req">required</span></label>
       <div class="upload-zone" id="uploadZone">
         <input type="file" id="buktiTrf" accept="image/*,.pdf">
         <span class="icon">📎</span>
-        <div class="txt"><b>Klik untuk pilih file</b> atau seret ke sini<br>JPG, PNG, atau PDF — maks. 5MB</div>
+        <div class="txt"><b>Choose File</b> or Drag herei<br>JPG, PNG, atau PDF — maks. 5MB</div>
       </div>
       <div class="preview-wrap" id="previewWrap">
         <img id="previewImg" src="" alt="Preview bukti transfer">
@@ -441,9 +441,9 @@
           <div class="fname" id="previewName"></div>
           <div id="previewSize" class="mono" style="color:var(--thread);"></div>
         </div>
-        <button type="button" class="remove" id="removeFile">Hapus</button>
+        <button type="button" class="remove" id="removeFile">Delete</button>
       </div>
-      <div class="error-msg">Upload bukti transfer terlebih dahulu.</div>
+      <div class="error-msg">Upload first.</div>
     </div>
 
     <button type="submit" class="submit-btn" id="submitBtn">Kirim Pesanan</button>
@@ -453,14 +453,14 @@
 
   <div class="receipt" id="receiptCard">
     <div class="stamp">✅</div>
-    <h3>Pesanan Diterima!</h3>
-    <p>Terima kasih, pesananmu sudah tercatat. Tim kami akan menghubungi kamu lewat WhatsApp untuk konfirmasi dalam 1×24 jam.</p>
+    <h3>Order Received!</h3>
+    <p>Thank You! your order has been recorded. Our team will be contact you at WhatsApp for confirmation in 1×24 hour.</p>
     <div class="order-id mono" id="orderIdDisplay"></div>
   </div>
 </main>
 
 <footer>
-  Eco Wallet Co. — Produk daur ulang, dibuat dengan hati 🌿
+  Nexa Labs. — Smart product, made from heart 🌿
 </footer>
 
 <script>
